@@ -18,7 +18,12 @@ const formik = useFormik({
       return errors;
     },
   });
-//   app is ready 
+//   app is ready todo  form should include the following:
+
+// Email field
+// Password field
+// Submit button
+
    return (
     <div>
       <form onSubmit={formik.handleSubmit}>
