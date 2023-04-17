@@ -1,50 +1,78 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Formik, Field, Form } from 'formik';
+import React from "react";
 
-const Basic = () => ( <
-    div >
-    <
-    h1 > Sign Up < /h1> <
-    Formik initialValues = {
-        {
-            firstName: '',
-            lastName: '',
-            email: '',
-        }
-    }
-    onSubmit = {
-        async(values) => {
-            await new Promise((r) => setTimeout(r, 500));
-            alert(JSON.stringify(values, null, 2));
-        }
-    } >
-    <
-    Form >
-    <
-    label htmlFor = "firstName" > First Name < /label> <
-    Field id = "firstName"
-    name = "firstName"
-    placeholder = "Jane" / >
+// TODO: import useFormik from formik library
+import { useFormik } from "formik";
 
-    <
-    label htmlFor = "lastName" > Last Name < /label> <
-    Field id = "lastName"
-    name = "lastName"
-    placeholder = "Doe" / >
+function App() {
+  // TODO: add a const called formik assigned to useFormik()
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+    onSubmit: () => {
+      alert("Login Successful");
+    },
+    validate: (values) => {
+      let errors = {};
+      if (!values.email) errors.email = "field required";
+      if (!values.password) errors.password = "field required";
+      return errors;
+    },
+  });
+  //   app is ready! todo:  form should include the following:
 
-    <
-    label htmlFor = "email" > Email < /label> <
-    Field id = "email"
-    name = "email"
-    placeholder = "jane@acme.com"
-    type = "email" /
-    >
-    <
-    button type = "submit" > Submit < /button> <
-    /Form> <
-    /Formik> <
-    /div>
-);
+  // Email field
+  // Password field
+  // Submit button
 
-ReactDOM.render( < Basic / > , document.getElementById('root'));
+  return (
+    <div>
+      <form onSubmit={formik.handleSubmit}>
+        <div> Email: </div>
+        <input
+          type="text"
+          name="email"
+          id="emailField"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+        />{" "}
+        {formik.errors.email ? (
+          <div
+            id="emailError"
+            style={{
+              color: "red",
+            }}
+          >
+            {" "}
+            {formik.errors.email}{" "}
+          </div>
+        ) : null}{" "}
+        <div> Password: </div>{" "}
+        <input
+          type="text"
+          name="password"
+          id="pswField"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+        />{" "}
+        <br />{" "}
+        {formik.errors.password ? (
+          <div
+            id="pswError"
+            style={{
+              color: "red",
+            }}
+          >
+            {" "}
+            {formik.errors.password}{" "}
+          </div>
+        ) : null}{" "}
+        <button type="submit"> Submit </button>{" "}
+      </form>{" "}
+    </div>
+  );
+}
+
+export default App;
