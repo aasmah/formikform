@@ -18,12 +18,39 @@ const formik = useFormik({
       return errors;
     },
   });
-  return (
+//   app is ready 
+   return (
     <div>
-      <p>
-        The app is ready! You can proceed with the task instructions. TODO:
-        build you form here.
-      </p>
+      <form onSubmit={formik.handleSubmit}>
+        <div>Email:</div>
+        <input
+          type="text"
+          name="email"
+          id="emailField"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+        />
+        {formik.errors.email ? (
+          <div id="emailError" style={{ color: 'red' }}>
+            {formik.errors.email}
+          </div>
+        ) : null}
+        <div>Password:</div>
+        <input
+          type="text"
+          name="password"
+          id="pswField"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+        />
+        <br />
+        {formik.errors.password ? (
+          <div id="pswError" style={{ color: 'red' }}>
+            {formik.errors.password}
+          </div>
+        ) : null}
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
